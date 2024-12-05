@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Fora.Challenge.Application\Fora.Challenge.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+
 </Project>

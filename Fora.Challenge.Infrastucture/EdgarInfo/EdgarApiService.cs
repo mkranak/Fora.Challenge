@@ -11,14 +11,12 @@ namespace Fora.Challenge.Infrastucture.EdgarInfo
         public EdgarApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.34.0");
-            _httpClient.DefaultRequestHeaders.Add("Accept", "*/*");
         }
 
-        public async Task<EdgarCompanyInfo> FetchEdgarCompanyInfoAsync(string cik)
+        public async Task<EdgarCompanyInfo> FetchEdgarCompanyInfoAsync(int cik)
         {
-            string formattedCik = cik.PadLeft(10, '0');
-            string url = $"https://data.sec.gov/api/xbrl/companyfacts/CIK{formattedCik}.json";
+            string formattedCik = cik.ToString().PadLeft(10, '0');
+            string url = $"api/xbrl/companyfacts/CIK{formattedCik}.json";
 
             try
             {
@@ -27,6 +25,7 @@ namespace Fora.Challenge.Infrastucture.EdgarInfo
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
+
                     return JsonSerializer.Deserialize<EdgarCompanyInfo>(jsonResponse, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true

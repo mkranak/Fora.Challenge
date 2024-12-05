@@ -1,7 +1,6 @@
 ﻿using Fora.Challenge.Application.Contracts.Infrastructure;
 using Fora.Challenge.Application.Models;
 using Fora.Challenge.Infrastucture.EdgarInfo;
-using Fora.Challenge.Infrastucture.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,12 +11,12 @@ namespace Fora.Challenge.Infrastucture
         public static IServiceCollection AddInfrastructureServices(
             this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
-
-            services.AddHttpClient<IEdgarApiService, EdgarApiService>();
-
-            services.AddTransient<IEdgarApiService, EdgarApiService>();
-            services.AddTransient<IEmailService, EmailService>();
+            services.AddHttpClient<IEdgarApiService, EdgarApiService>(options =>
+            {
+                options.BaseAddress = new Uri("https://data.sec.gov/");
+                options.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.34.0");
+                options.DefaultRequestHeaders.Add("Accept", "*/*");
+            });
 
             return services;
         }

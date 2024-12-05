@@ -1,9 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿using Fora.Challenge.Application.Converters;
+using System.Text.Json.Serialization;
 
 namespace Fora.Challenge.Application.Models
 {
     public class EdgarCompanyInfo
     {
+        [JsonConverter(typeof(TrimLeadingZerosToIntConverter))]
         public int Cik { get; set; }
         public string EntityName { get; set; }
         public InfoFact Facts { get; set; }

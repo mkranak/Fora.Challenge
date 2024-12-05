@@ -39,7 +39,7 @@ namespace Fora.Challenge.Api
             using var scope = app.Services.CreateScope();
             try
             {
-                var context = scope.ServiceProvider.GetService<GloboTicketDbContext>();
+                var context = scope.ServiceProvider.GetService<CompanyDataDbContext>();
                 if (context != null)
                 {
                     await context.Database.EnsureDeletedAsync();

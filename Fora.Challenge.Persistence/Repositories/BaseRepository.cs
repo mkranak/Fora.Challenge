@@ -1,18 +1,13 @@
 ﻿using Fora.Challenge.Application.Contracts.Persistance;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fora.Challenge.Persistence.Repositories
 {
     public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {
-        protected readonly GloboTicketDbContext _dbContext;
+        protected readonly CompanyDataDbContext _dbContext;
 
-        public BaseRepository(GloboTicketDbContext dbContext)
+        public BaseRepository(CompanyDataDbContext dbContext)
         {
             _dbContext = dbContext;
         }

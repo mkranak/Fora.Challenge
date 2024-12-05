@@ -11,15 +11,12 @@ namespace Fora.Challenge.Persistence
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, 
             IConfiguration configuration)
         {
-            services.AddDbContext<GloboTicketDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString
-                    ("GloboTicketTicketManagementConnectionString")));
+            services.AddDbContext<CompanyDataDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("CompanyDataConnectionString")));
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IEventRepository, EventRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICompanyDataRepository, CompanyDataRepository>();
 
             return services;
         }
