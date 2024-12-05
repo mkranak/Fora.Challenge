@@ -1,4 +1,5 @@
-﻿using Fora.Challenge.Application.Features.FinancialData.Commands;
+﻿using Fora.Challenge.Application.Exceptions;
+using Fora.Challenge.Application.Features.FinancialData.Commands;
 using Fora.Challenge.Application.Features.FinancialData.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,15 +25,16 @@ namespace Fora.Challenge.Api.Controllers
             return NoContent();
         }
 
-        [HttpGet("{cik}")]
-        public async Task<IActionResult> GetCompanyData(int cik)
+        [HttpGet()]
+        public async Task<IActionResult> GetCompanyData([FromQuery]string? startsWith)
         {
-            var result = await _mediator.Send(new GetEdgarDataQuery { Cik = cik });
+            // Validate here with validator and validationException
+            if (startsWith != null && startsWith.Length > 1)
+                throw new Exception("The filter starts with can only be one character.");
 
+            var result = await _mediator.Send(new GetCompanyDataQuery() { StartsWith = startsWith});
             if (result == null)
-            {
-                return NotFound($"Data for CIK {cik} not found or failed to fetch.");
-            }
+                return NotFound($"Data not found or failed to fetch.");
 
             return Ok(result);
         }

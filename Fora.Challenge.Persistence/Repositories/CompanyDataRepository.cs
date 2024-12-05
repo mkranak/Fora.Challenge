@@ -13,9 +13,12 @@ namespace Fora.Challenge.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Company> GetEdgarCompanyInfoAsync(int cik)
+        public async Task<List<Company>> GetEdgarCompanyInfoAsync(string startsWith)
         {
-            return await _dbContext.Companies.FirstOrDefaultAsync(e => e.Cik == cik);
+            return await _dbContext.Companies
+                .Where(c => startsWith == null || c.EntityName.StartsWith(startsWith))
+                .Include(c => c.NetIncomeLossData)
+                .ToListAsync();
         }
 
         public async Task SaveEdgarCompanyInfoAsync(IEnumerable<Company> companies)
