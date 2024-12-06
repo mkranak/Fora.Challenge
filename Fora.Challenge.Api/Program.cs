@@ -5,6 +5,6 @@ var app = builder
     .ConfigureServices()
     .ConfigurePipeline();
 
-//await app.ResetDatabaseAsync(); todo
+//await app.ResetDatabaseAsync(); // todo
 
 app.Run();

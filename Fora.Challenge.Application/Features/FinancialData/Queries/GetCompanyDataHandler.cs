@@ -18,14 +18,6 @@ namespace Fora.Challenge.Application.Features.FinancialData.Queries
         public async Task<List<GetCompanyDataResponse>> Handle(GetCompanyDataQuery request, CancellationToken cancellationToken)
         {
             var companyData = await _companyDataRepository.GetEdgarCompanyInfoAsync(request.StartsWith);
-
-            var result = companyData.Select(c =>
-            {
-                return _mapper.Map<List<GetCompanyDataResponse>>(companyData);
-            });
-
-
-
             return _mapper.Map<List<GetCompanyDataResponse>>(companyData);
         }
     }
