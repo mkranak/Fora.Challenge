@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Fora.Challenge.Application.Features.FinancialData.Queries;
+﻿using Fora.Challenge.Application.Features.FinancialData.Queries;
 using Fora.Challenge.Application.Resolvers;
 using Fora.Challenge.Domain.Entities;
 
