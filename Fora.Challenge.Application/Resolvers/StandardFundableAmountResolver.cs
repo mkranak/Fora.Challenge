@@ -33,13 +33,10 @@ namespace Fora.Challenge.Application.Resolvers
 
             // get fundable amount from highest income
             var highestIncome = relevantYears.Max(data => data.Val);
-            var standardAmount = highestIncome >= 10000000000 // 10 billion
+
+            return highestIncome >= 10000000000 // 10 billion
                 ? highestIncome * 0.1233m
                 : highestIncome * 0.2151m;
-
-            // todo: uncomment if need to round here
-            //return decimal.Round(standardAmount, 2, MidpointRounding.AwayFromZero);
-            return standardAmount;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Fora.Challenge.Application.Resolvers
             // add 15% if the company name starts with a vowel
             if (source.EntityName.IsStartingWithVowel())
             {
-                standardFundableAmount += standardFundableAmount * 0.15m; // 15 percent
+                specialFundableAmount += standardFundableAmount * 0.15m; // 15 percent
             }
 
             // subtract 25% if 2022 income is less than 2021 income
@@ -37,9 +37,10 @@ namespace Fora.Challenge.Application.Resolvers
 
             if (income2022 < income2021)
             {
-                standardFundableAmount -= standardFundableAmount * 0.25m;
+                specialFundableAmount -= standardFundableAmount * 0.25m;
             }
-            // todo: hopefully this is not needed
+            
+            // round standard fundable amount after calculations completed
             destination.StandardFundableAmount = 
                 decimal.Round(standardFundableAmount, 2, MidpointRounding.AwayFromZero);
 

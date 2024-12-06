@@ -26,13 +26,13 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             {
                 StandardFundableAmount = standardAmount
             };
+            var expectedSpecialAmount = standardAmount;
 
             // Act
             var result = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(standardAmount, result); // standard amount is the special amount
-            Assert.Equal(standardAmount, destination.StandardFundableAmount);
+            Assert.Equal(expectedSpecialAmount, result);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
                     new() { Frame = "CY2022", Val = 2 }
                 }
             };
-            var standardAmount = 100.12567m; // zero
+            var standardAmount = 100.12567m;
             var destination = new GetCompanyDataResponse
             {
                 StandardFundableAmount = standardAmount
@@ -59,12 +59,12 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var result = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedAmount, result); // standard amount is the special amount
+            Assert.Equal(expectedAmount, result);
             Assert.Equal(expectedAmount, destination.StandardFundableAmount);
         }
 
         [Fact]
-        public void OnResolve_WhenCompanyNameStartsWithVowel_ExpectCorrectFundableAmounts()
+        public void OnResolve_WhenCompanyNameStartsWithVowel_ExpectCorrectAmount()
         {
             // Arrange
             var company = new Company
@@ -76,18 +76,17 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             {
                 StandardFundableAmount = standardAmount
             };
-            var expectedStandardAmount = standardAmount + (standardAmount * 0.15m);
+            var expectedSpecialAmount = standardAmount + (standardAmount * 0.15m);
 
             // Act
             var result = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(standardAmount, result); // standard amount is the special amount
-            Assert.Equal(expectedStandardAmount, destination.StandardFundableAmount);
+            Assert.Equal(expectedSpecialAmount, result);
         }
 
         [Fact]
-        public void OnResolve_WhenCompanyNameHasLessIncomeIn2022_ExpectCorrectFundableAmounts()
+        public void OnResolve_WhenCompanyNameHasLessIncomeIn2022_ExpectCorrectAmount()
         {
             // Arrange
             var company = new Company
@@ -104,18 +103,17 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             {
                 StandardFundableAmount = standardAmount
             };
-            var expectedStandardAmount = standardAmount - (standardAmount * 0.25m);
+            var expectedSpecialAmount = standardAmount - (standardAmount * 0.25m);
 
             // Act
             var result = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(standardAmount, result); // standard amount is the special amount
-            Assert.Equal(expectedStandardAmount, destination.StandardFundableAmount);
+            Assert.Equal(expectedSpecialAmount, result);
         }
 
         [Fact]
-        public void OnResolve_WhenCompanyNameStartsWithVowelAndHasLessIncomeIn2022_ExpectCorrectFundableAmounts()
+        public void OnResolve_WhenCompanyNameStartsWithVowelAndHasLessIncomeIn2022_ExpectAmount()
         {
             // Arrange
             var company = new Company
@@ -132,15 +130,14 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             {
                 StandardFundableAmount = standardAmount
             };
-            var expectedStandardAmount = standardAmount + (standardAmount * 0.15m);
-            expectedStandardAmount = expectedStandardAmount - (expectedStandardAmount * 0.25m);
+            var expectedSpecialAmount = standardAmount + (standardAmount * 0.15m);
+            expectedSpecialAmount = expectedSpecialAmount - (standardAmount * 0.25m);
 
             // Act
             var result = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(standardAmount, result); // standard amount is the special amount
-            Assert.Equal(expectedStandardAmount, destination.StandardFundableAmount);
+            Assert.Equal(expectedSpecialAmount, result);
         }
     }
 }
