@@ -4,7 +4,7 @@ namespace Fora.Challenge.Application.Contracts.Persistance
 {
     public interface ICompanyDataRepository
     {
-        Task<List<Company>> GetEdgarCompanyInfoAsync(string startsWith);
-        Task SaveEdgarCompanyInfoAsync(IEnumerable<Company> companies);
+        Task<List<Company>> GetCompanyDataAsync(string startsWith);
+        Task SaveCompanyDataAsync(IEnumerable<Company> companies);
     }
 }

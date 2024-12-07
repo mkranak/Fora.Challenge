@@ -24,20 +24,22 @@ namespace Fora.Challenge.Application.Features.FinancialData.Commands
         {
             var companies = new List<Company>();
 
+            // todo: validate there is atleast 1 cik
+
             foreach(var cik in request.Ciks)
             {
                 var companyData = await _edgarApiService.FetchEdgarCompanyInfoAsync(cik);
 
-                if (companyData != null)
-                {
-                    // Use AutoMapper to map the API response to the domain object
-                    var company = _mapper.Map<Company>(companyData);
-                    companies.Add(company);
-                }
+                if (companyData == null) // todo we can make a log entry here
+                    continue;
+
+                var company = _mapper.Map<Company>(companyData);
+                companies.Add(company);
             }
 
-            await _companyDataRepository.SaveEdgarCompanyInfoAsync(companies);
+            // todo if (companies.Count <= 0) {
 
+            await _companyDataRepository.SaveCompanyDataAsync(companies);
         }
     }
 }

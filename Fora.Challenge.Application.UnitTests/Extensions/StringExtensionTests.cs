@@ -1,9 +1,4 @@
 ﻿using Fora.Challenge.Application.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fora.Challenge.Application.UnitTests.Extensions
 {
@@ -25,7 +20,7 @@ namespace Fora.Challenge.Application.UnitTests.Extensions
 
         [Theory]
         [MemberData(nameof(GetNonVowelTestData))]
-        public void OnIsStartingWithVowel_WhenStringDoesNotStartsWithVowel_ExpectFalse(string input)
+        public void OnIsStartingWithVowel_WhenStringDoesNotStartWithVowel_ExpectFalse(string input)
         {
             // Arrange
             var expected = false;

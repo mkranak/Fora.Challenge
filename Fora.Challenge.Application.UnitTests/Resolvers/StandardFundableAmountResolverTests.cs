@@ -31,10 +31,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new GetCompanyDataResponse();
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(0, result); // Expect zero when not all years are present
+            Assert.Equal(0, actual); // Expect zero when not all years are present
         }
 
         [Fact]
@@ -55,10 +55,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new GetCompanyDataResponse();
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(0, result); // Expect zero when income in 2021 or 2022 is non-positive
+            Assert.Equal(0, actual); // Expect zero when income in 2021 or 2022 is non-positive
         }
 
         [Fact]
@@ -79,10 +79,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new GetCompanyDataResponse();
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(0, result); // Expect zero when income in 2021 or 2022 is non-positive
+            Assert.Equal(0, actual); // Expect zero when income in 2021 or 2022 is non-positive
         }
 
         [Fact]
@@ -106,10 +106,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new GetCompanyDataResponse();
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedAmount, result);
+            Assert.Equal(expectedAmount, actual);
         }
 
         [Fact]
@@ -133,10 +133,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new GetCompanyDataResponse();
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedAmount, result);
+            Assert.Equal(expectedAmount, actual);
         }
 
         [Fact]
@@ -160,10 +160,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new GetCompanyDataResponse();
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedAmount, result);
+            Assert.Equal(expectedAmount, actual);
         }
     }
 }

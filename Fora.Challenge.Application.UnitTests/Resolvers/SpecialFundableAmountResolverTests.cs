@@ -29,10 +29,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var expectedSpecialAmount = standardAmount;
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedSpecialAmount, result);
+            Assert.Equal(expectedSpecialAmount, actual);
         }
 
         [Fact]
@@ -56,10 +56,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var expectedAmount = decimal.Round(standardAmount, 2, MidpointRounding.AwayFromZero);
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedAmount, result);
+            Assert.Equal(expectedAmount, actual);
             Assert.Equal(expectedAmount, destination.StandardFundableAmount);
         }
 
@@ -79,10 +79,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var expectedSpecialAmount = standardAmount + (standardAmount * 0.15m);
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedSpecialAmount, result);
+            Assert.Equal(expectedSpecialAmount, actual);
         }
 
         [Fact]
@@ -106,10 +106,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var expectedSpecialAmount = standardAmount - (standardAmount * 0.25m);
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedSpecialAmount, result);
+            Assert.Equal(expectedSpecialAmount, actual);
         }
 
         [Fact]
@@ -134,10 +134,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             expectedSpecialAmount = expectedSpecialAmount - (standardAmount * 0.25m);
 
             // Act
-            var result = _resolver.Resolve(company, destination, 0, null);
+            var actual = _resolver.Resolve(company, destination, 0, null);
 
             // Assert
-            Assert.Equal(expectedSpecialAmount, result);
+            Assert.Equal(expectedSpecialAmount, actual);
         }
     }
 }

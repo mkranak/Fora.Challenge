@@ -24,13 +24,13 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new Company();
 
             // Act
-            var result = _resolver.Resolve(companyInfo, destination, null, null);
+            var actual = _resolver.Resolve(companyInfo, destination, null, null);
 
             // Assert
-            Assert.Single(result);
-            Assert.Contains(result, d => d.Form == "10-K");
-            Assert.Contains(result, d => d.Frame == "CY2022");
-            Assert.Contains(result, d => d.Val == 1000000);
+            Assert.Single(actual);
+            Assert.Contains(actual, d => d.Form == "10-K");
+            Assert.Contains(actual, d => d.Frame == "CY2022");
+            Assert.Contains(actual, d => d.Val == 1000000);
         }
 
         [Fact]
@@ -41,10 +41,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new Company();
 
             // Act
-            var result = _resolver.Resolve(companyInfo, destination, null, null);
+            var actual = _resolver.Resolve(companyInfo, destination, null, null);
 
             // Assert
-            Assert.Empty(result);
+            Assert.Empty(actual);
         }
 
         [Fact]
@@ -58,10 +58,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new Company();
 
             // Act
-            var result = _resolver.Resolve(companyInfo, destination, null, null);
+            var actual = _resolver.Resolve(companyInfo, destination, null, null);
 
             // Assert
-            Assert.Empty(result);
+            Assert.Empty(actual);
         }
 
         [Fact]
@@ -75,10 +75,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new Company();
 
             // Act
-            var result = _resolver.Resolve(companyInfo, destination, null, null);
+            var actual = _resolver.Resolve(companyInfo, destination, null, null);
 
             // Assert
-            Assert.Empty(result);
+            Assert.Empty(actual);
         }
 
         [Fact]
@@ -92,10 +92,10 @@ namespace Fora.Challenge.Application.UnitTests.Resolvers
             var destination = new Company();
 
             // Act
-            var result = _resolver.Resolve(companyInfo, destination, null, null);
+            var actual = _resolver.Resolve(companyInfo, destination, null, null);
 
             // Assert
-            Assert.Empty(result);
+            Assert.Empty(actual);
         }
 
         private EdgarCompanyInfo ConstructEdgarCompanyInfoStub(string form, string frame, decimal val)

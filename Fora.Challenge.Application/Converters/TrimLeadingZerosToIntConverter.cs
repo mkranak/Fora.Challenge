@@ -7,25 +7,19 @@ namespace Fora.Challenge.Application.Converters
     {
         public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.TokenType == JsonTokenType.String)
+            if (reader.TokenType == JsonTokenType.String) // Handle as string (e.g., "0001858912")
             {
-                // Handle as string (e.g., "0001858912")
                 var stringValue = reader.GetString();
                 if (string.IsNullOrEmpty(stringValue))
-                {
                     throw new JsonException("Cik value is null or empty.");
-                }
 
                 if (int.TryParse(stringValue.TrimStart('0'), out var intValue))
-                {
                     return intValue;
-                }
 
                 throw new JsonException($"Invalid Cik value: {stringValue}");
             }
-            else if (reader.TokenType == JsonTokenType.Number)
+            else if (reader.TokenType == JsonTokenType.Number) // Handle as number directly
             {
-                // Handle as number directly
                 if (reader.TryGetInt32(out var intValue))
                 {
                     return intValue;

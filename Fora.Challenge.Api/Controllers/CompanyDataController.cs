@@ -1,5 +1,4 @@
-﻿using Fora.Challenge.Application.Exceptions;
-using Fora.Challenge.Application.Features.FinancialData.Commands;
+﻿using Fora.Challenge.Application.Features.FinancialData.Commands;
 using Fora.Challenge.Application.Features.FinancialData.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
