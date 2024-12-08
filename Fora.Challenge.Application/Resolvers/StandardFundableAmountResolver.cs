@@ -6,6 +6,12 @@ namespace Fora.Challenge.Application.Resolvers
 {
     public class StandardFundableAmountResolver : IValueResolver<Company, GetCompanyDataResponse, decimal>
     {
+        /// <summary>Calculates the standard fundable amount.</summary>
+        /// <param name="source">Source object</param>
+        /// <param name="destination">Destination object, if exists</param>
+        /// <param name="destMember">Destination member</param>
+        /// <param name="context">The context of the mapping</param>
+        /// <returns>The standard fundable amount.</returns>
         public decimal Resolve(Company source, GetCompanyDataResponse destination, decimal destMember, ResolutionContext context)
         {
             var incomeLossData = source.NetIncomeLossData;

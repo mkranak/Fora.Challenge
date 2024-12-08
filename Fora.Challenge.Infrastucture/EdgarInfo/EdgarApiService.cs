@@ -1,5 +1,6 @@
 ﻿using Fora.Challenge.Application.Contracts.Infrastructure;
 using Fora.Challenge.Application.Models;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace Fora.Challenge.Infrastucture.EdgarInfo
@@ -7,12 +8,15 @@ namespace Fora.Challenge.Infrastucture.EdgarInfo
     public class EdgarApiService : IEdgarApiService
     {
         private readonly HttpClient _httpClient;
+        private readonly ILogger<EdgarApiService> _logger;
 
         /// <summary>Initializes a new instance of the <see cref="EdgarApiService"/> class.</summary>
         /// <param name="httpClient">The HTTP client.</param>
-        public EdgarApiService(HttpClient httpClient)
+        /// <param name="logger">The logger.</param>
+        public EdgarApiService(HttpClient httpClient, ILogger<EdgarApiService> logger)
         {
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         /// <summary>Fetches the edgar company information asynchronous.</summary>
@@ -39,9 +43,7 @@ namespace Fora.Challenge.Infrastucture.EdgarInfo
             }
             catch (Exception ex)
             {
-                // Log exception (e.g., using ILogger)
-                Console.WriteLine($"Exception: {ex.Message}");
-                throw;
+                _logger.LogError($"Unable to fetch edgar company info for cik={cik}");
             }
 
             return null;

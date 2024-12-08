@@ -7,6 +7,12 @@ namespace Fora.Challenge.Application.Resolvers
 {
     public class SpecialFundableAmountResolver : IValueResolver<Company, GetCompanyDataResponse, decimal>
     {
+        /// <summary>Calculates the special fundable amount.</summary>
+        /// <param name="source">Source object</param>
+        /// <param name="destination">Destination object, if exists</param>
+        /// <param name="destMember">Destination member</param>
+        /// <param name="context">The context of the mapping</param>
+        /// <returns>The special fundable amount.</returns>
         public decimal Resolve(Company source, GetCompanyDataResponse destination, decimal destMember, ResolutionContext context)
         {
             var standardFundableAmount = destination.StandardFundableAmount;

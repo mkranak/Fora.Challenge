@@ -7,6 +7,12 @@ namespace Fora.Challenge.Application.Resolvers
 {
     public class NetIncomeLossDataResolver : IValueResolver<EdgarCompanyInfo, Company, ICollection<NetIncomeLossData>>
     {
+        /// <summary>Filter only valid NetIncomeLossData for company.</summary>
+        /// <param name="source">Source object</param>
+        /// <param name="destination">Destination object, if exists</param>
+        /// <param name="destMember">Destination member</param>
+        /// <param name="context">The context of the mapping</param>
+        /// <returns>A collection of NetIncomeLossData for a company.</returns>
         public ICollection<NetIncomeLossData> Resolve(EdgarCompanyInfo source, Company destination, ICollection<NetIncomeLossData> destMember, ResolutionContext context)
         {
             if (source?.Facts?.UsGaap?.NetIncomeLoss?.Units?.Usd == null)

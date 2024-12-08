@@ -7,12 +7,15 @@ namespace Fora.Challenge.Api.Middleware
     public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
         /// <summary>Initializes a new instance of the <see cref="ExceptionHandlerMiddleware"/> class.</summary>
         /// <param name="next">The next.</param>
-        public ExceptionHandlerMiddleware(RequestDelegate next)
+        /// <param name="logger">The logger.</param>
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         /// <summary>Invokes the specified context.</summary>
@@ -36,26 +39,30 @@ namespace Fora.Challenge.Api.Middleware
         private Task ConvertException(HttpContext context, Exception exception)
         {
             HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError;
+            LogLevel logLevel = LogLevel.Information;
 
             context.Response.ContentType = "application/json";
-
-            //var result = string.Empty;
 
             switch (exception)
             {
                 case BadRequestException badRequestException:
                     httpStatusCode = HttpStatusCode.BadRequest;
+                    logLevel = LogLevel.Warning;
                     break;
                 case NotFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
+                    logLevel = LogLevel.Warning;
                     break;
                 case Exception:
                     httpStatusCode = HttpStatusCode.InternalServerError;
+                    logLevel = LogLevel.Error;
                     break;
             }
 
             context.Response.StatusCode = (int)httpStatusCode;
             var errorResult = new ErrorResponse(exception.Message, exception.HResult);
+
+            _logger.Log(logLevel, exception.Message);
 
             return context.Response.WriteAsJsonAsync(errorResult);
         }

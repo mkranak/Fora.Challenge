@@ -41,7 +41,7 @@ namespace Fora.Challenge.Api.IntegrationTests.Controllers
             using var client = application.CreateClient();
 
             // Act
-            var response = await _client.GetAsync($"/api/v1/companies?filter={filter}");
+            var response = await client.GetAsync($"/api/v1/companies?filter={filter}");
 
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);

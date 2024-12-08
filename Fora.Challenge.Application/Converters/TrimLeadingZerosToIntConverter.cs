@@ -6,12 +6,12 @@ namespace Fora.Challenge.Application.Converters
 {
     public class TrimLeadingZerosToIntConverter : JsonConverter<int>
     {
-        /// <summary>Reads and converts the JSON to type <typeparamref name="T" />.</summary>
+        /// <summary>Reads and converts the json to an int.</summary>
         /// <param name="reader">The reader.</param>
         /// <param name="typeToConvert">The type to convert.</param>
         /// <param name="options">An object that specifies serialization options to use.</param>
         /// <returns>The converted value.</returns>
-        /// <exception cref="Fora.Challenge.Application.Exceptions.ConversionException" />
+        /// <exception cref="ConversionException" />
         public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.String) // Handle as string (e.g., "0001858912")
