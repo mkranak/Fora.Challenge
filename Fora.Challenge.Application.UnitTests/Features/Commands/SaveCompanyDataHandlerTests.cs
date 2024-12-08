@@ -5,7 +5,7 @@ using Fora.Challenge.Application.Exceptions;
 using Fora.Challenge.Application.Features.FinancialData.Commands;
 using Fora.Challenge.Application.Features.Profiles;
 using Fora.Challenge.Application.Models;
-using Fora.Challenge.Application.UnitTests.Mock;
+using Fora.Challenge.Application.UnitTests.MockExtensions;
 using Fora.Challenge.Domain.Entities;
 using Moq;
 

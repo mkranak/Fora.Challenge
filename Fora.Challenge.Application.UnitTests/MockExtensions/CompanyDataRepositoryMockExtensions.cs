@@ -2,7 +2,7 @@
 using Fora.Challenge.Domain.Entities;
 using Moq;
 
-namespace Fora.Challenge.Application.UnitTests.Mock
+namespace Fora.Challenge.Application.UnitTests.MockExtensions
 {
     public static class CompanyDataRepositoryMockExtensions
     {

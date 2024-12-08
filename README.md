@@ -19,11 +19,14 @@ To run the service locally, ensure you have:
 
 ## Usage
 
+- First, you will want to import data from the edger api to the database with `/api/v1/companies/bulk`
+- Then you can fetch company data by using `/api/v1/companies`
+
 ### API Endpoints
 
 #### GET /api/v1/companies
 - Fetch company data.
-- filter for companies with first letter (/api/v1/companies?filter=A)
+- filter for companies with first letter (`/api/v1/companies?filter=A`)
 
 #### POST /api/v1/companies/bulk
 Save company data in bulk.

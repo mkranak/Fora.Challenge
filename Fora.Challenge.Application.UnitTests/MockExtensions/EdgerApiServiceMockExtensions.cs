@@ -2,7 +2,7 @@
 using Fora.Challenge.Application.Models;
 using Moq;
 
-namespace Fora.Challenge.Application.UnitTests.Mock
+namespace Fora.Challenge.Application.UnitTests.MockExtensions
 {
     public static class EdgerApiServiceMockExtensions
     {

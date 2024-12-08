@@ -3,10 +3,9 @@ using Fora.Challenge.Application.Contracts.Persistance;
 using Fora.Challenge.Application.Exceptions;
 using Fora.Challenge.Application.Features.FinancialData.Queries;
 using Fora.Challenge.Application.Features.Profiles;
-using Fora.Challenge.Application.UnitTests.Mock;
+using Fora.Challenge.Application.UnitTests.MockExtensions;
 using Fora.Challenge.Domain.Entities;
 using Moq;
-using System.Diagnostics.Metrics;
 
 namespace Fora.Challenge.Application.UnitTests.Features.Queries
 {
