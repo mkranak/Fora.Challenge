@@ -34,7 +34,6 @@ namespace Fora.Challenge.Persistence.IntegrationTests.Repositories
             // Arrange
             const int cikA = 123456;
             const int cikB = 654321;
-            const string startsWith = null;
             var companies = new List<Company>
             {
                 new Company
@@ -77,7 +76,7 @@ namespace Fora.Challenge.Persistence.IntegrationTests.Repositories
             await _companyDataDbContext.SaveChangesAsync();
 
             // Act
-            var actual = await _companyDataRepository.GetCompanyDataAsync(startsWith);
+            var actual = await _companyDataRepository.GetCompanyDataAsync(filter);
 
             // Assert
             Assert.NotNull(actual);

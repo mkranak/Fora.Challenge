@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fora.Challenge.Api.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/companies")]
     [ApiController]
-    public class CompanyDataController : ControllerBase
+    public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        /// <summary>Initializes a new instance of the <see cref="CompanyDataController"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CompanyController"/> class.</summary>
         /// <param name="mediator">The mediator.</param>
-        public CompanyDataController(IMediator mediator)
+        public CompanyController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -21,7 +21,7 @@ namespace Fora.Challenge.Api.Controllers
         /// <summary>Saves the company data.</summary>
         /// <param name="command">The command.</param>
         /// <returns>No content.</returns>
-        [HttpPost("import")]
+        [HttpPost("bulk")]
         public async Task<IActionResult> SaveCompanyData([FromBody] SaveCompanyDataCommand command)
         {
             await _mediator.Send(command);
@@ -29,12 +29,12 @@ namespace Fora.Challenge.Api.Controllers
         }
 
         /// <summary>Gets the company data.</summary>
-        /// <param name="firstLetter">The first letter.</param>
+        /// <param name="filter">The filter (for the first letter).</param>
         /// <returns>The requested companies.</returns>
-        [HttpGet()]
-        public async Task<IActionResult> GetCompanyData([FromQuery]string? firstLetter)
+        [HttpGet]
+        public async Task<IActionResult> GetCompanyData([FromQuery]string? filter)
         {
-            var result = await _mediator.Send(new GetCompanyDataQuery() { FirstLetter = firstLetter});
+            var result = await _mediator.Send(new GetCompanyDataQuery() { Filter = filter});
             return Ok(result);
         }
     }

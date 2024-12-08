@@ -7,9 +7,9 @@ namespace Fora.Challenge.Application.UnitTests.Mock
     public static class CompanyDataRepositoryMockExtensions
     {
         public static void SetupGetCompanyDataAsyncMock(
-            this Mock<ICompanyDataRepository> repositoryMock, string startsWith, List<Company> companies)
+            this Mock<ICompanyDataRepository> repositoryMock, string filter, List<Company> companies)
         {
-            repositoryMock.Setup(exp => exp.GetCompanyDataAsync(startsWith))
+            repositoryMock.Setup(exp => exp.GetCompanyDataAsync(filter))
                 .ReturnsAsync(companies)
                 .Verifiable();
         }

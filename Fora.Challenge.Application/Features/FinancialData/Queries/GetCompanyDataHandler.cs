@@ -27,10 +27,11 @@ namespace Fora.Challenge.Application.Features.FinancialData.Queries
         /// <exception cref="NotFoundException" />
         public async Task<List<GetCompanyDataResponse>> Handle(GetCompanyDataQuery request, CancellationToken cancellationToken)
         {
-            if (request.FirstLetter != null && request.FirstLetter.Length > 1)
-                throw new BadRequestException("First letter can only have one character.");
+            if (!string.IsNullOrEmpty(request.Filter) && (request.Filter.Length != 1 ||
+                !char.IsLetter(request.Filter[0])))
+                throw new BadRequestException("Filter can only be one letter.");
 
-            var companyData = await _companyDataRepository.GetCompanyDataAsync(request.FirstLetter);
+            var companyData = await _companyDataRepository.GetCompanyDataAsync(request.Filter);
 
             return !companyData.Any()
                 ? throw new NotFoundException("No companies found.")

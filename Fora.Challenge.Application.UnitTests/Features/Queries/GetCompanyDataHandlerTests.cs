@@ -6,6 +6,7 @@ using Fora.Challenge.Application.Features.Profiles;
 using Fora.Challenge.Application.UnitTests.Mock;
 using Fora.Challenge.Domain.Entities;
 using Moq;
+using System.Diagnostics.Metrics;
 
 namespace Fora.Challenge.Application.UnitTests.Features.Queries
 {
@@ -31,7 +32,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
         public async Task Handle_WhenFilterPassedIn_ExpectSuccess()
         {
             // Arrange
-            var request = new GetCompanyDataQuery { FirstLetter = "T" };
+            var request = new GetCompanyDataQuery { Filter = "T" };
             var responseCompanies = new List<Company>()
             {
                 new Company
@@ -48,7 +49,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
                 }
             };
 
-            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.FirstLetter, responseCompanies);
+            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.Filter, responseCompanies);
 
             // Act
             var actual = await _handler.Handle(request, CancellationToken.None);
@@ -84,7 +85,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
                 }
             };
 
-            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.FirstLetter, responseCompanies);
+            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.Filter, responseCompanies);
 
             // Act
             var actual = await _handler.Handle(request, CancellationToken.None);
@@ -103,7 +104,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
         public async Task Handle_WhenFilterIsLengthGreaterThanOne_ExpectBadRequestException()
         {
             // Arrange
-            var request = new GetCompanyDataQuery { FirstLetter = "Ta" };
+            var request = new GetCompanyDataQuery { Filter = "Ta" };
             var responseCompanies = new List<Company>()
             {
                 new Company
@@ -126,7 +127,39 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
 
             // Assert
             Assert.NotNull(exception);
-            Assert.Equal("First letter can only have one character.", exception.Message);
+            Assert.Equal("Filter can only be one letter.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData("1")]
+        [InlineData("!")]
+        public async Task Handle_WhenFilterIsNotALetter_ExpectBadRequestException(string input)
+        {
+            // Arrange
+            var request = new GetCompanyDataQuery { Filter = input };
+            var responseCompanies = new List<Company>()
+            {
+                new Company
+                {
+                    Id = 1,
+                    Cik = 1,
+                    EntityName = "First_Name"
+                },
+                new Company
+                {
+                    Id = 2,
+                    Cik = 2,
+                    EntityName = "Second_Name"
+                }
+            };
+
+            // Act
+            var exception = await Assert.ThrowsAsync<BadRequestException>(() =>
+                _handler.Handle(request, CancellationToken.None));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.Equal("Filter can only be one letter.", exception.Message);
         }
 
         [Fact]
@@ -136,7 +169,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
             var request = new GetCompanyDataQuery();
             var responseCompanies = new List<Company>(); // empty list
 
-            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.FirstLetter, responseCompanies);
+            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.Filter, responseCompanies);
 
             // Act
             var exception = await Assert.ThrowsAsync<NotFoundException>(() =>

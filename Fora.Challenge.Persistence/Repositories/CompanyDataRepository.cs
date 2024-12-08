@@ -16,16 +16,16 @@ namespace Fora.Challenge.Persistence.Repositories
         }
 
         /// <summary>Gets the company data asynchronous.</summary>
-        /// <param name="firstLetter">First letter filter.</param>
+        /// <param name="filter">First letter filter.</param>
         /// <returns>Company data.</returns>
-        public async Task<List<Company>> GetCompanyDataAsync(string firstLetter)
+        public async Task<List<Company>> GetCompanyDataAsync(string filter)
         {
             var query = _dbContext.Companies
                 .Include(c => c.NetIncomeLossData)
                 .AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(firstLetter))
-                query = query.Where(c => c.EntityName.StartsWith(firstLetter));
+            if (!string.IsNullOrWhiteSpace(filter))
+                query = query.Where(c => c.EntityName.StartsWith(filter));
 
             return await query.ToListAsync();
         }
