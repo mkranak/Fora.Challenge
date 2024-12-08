@@ -42,24 +42,21 @@ namespace Fora.Challenge.Api
             return app;
         }
 
-        // todo: this can be removed
-        /// <summary>Resets the database asynchronous.</summary>
+        /// <summary>Creates the database if needed.</summary>
         /// <param name="app">The application.</param>
-        public static async Task ResetDatabaseAsync(this WebApplication app)
+        public static async Task CreateDatabaseIfNeeded(this WebApplication app)
         {
             using var scope = app.Services.CreateScope();
-            try
+
+            var context = scope.ServiceProvider.GetService<CompanyDataDbContext>();
+            if (context != null)
             {
-                var context = scope.ServiceProvider.GetService<CompanyDataDbContext>();
-                if (context != null)
+                var databaseExists = await context.Database.CanConnectAsync();
+                
+                if (!databaseExists)
                 {
-                    await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
                 }
-            }
-            catch (Exception)
-            {
-                //add logging here later on
             }
         }
     }
