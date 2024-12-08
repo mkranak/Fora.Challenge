@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fora.Challenge.Application.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fora.Challenge.Persistence.IntegrationTests", "Fora.Challenge.Persistence.IntegrationTests\Fora.Challenge.Persistence.IntegrationTests.csproj", "{3F3F3DF9-D8A5-4003-A4C1-9E51D6856B4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fora.Challenge.Api.IntegrationTests", "Fora.Challenge.Api.IntegrationTests\Fora.Challenge.Api.IntegrationTests.csproj", "{31FECB29-72F7-4185-B427-8D200B266787}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{3F3F3DF9-D8A5-4003-A4C1-9E51D6856B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3F3DF9-D8A5-4003-A4C1-9E51D6856B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3F3DF9-D8A5-4003-A4C1-9E51D6856B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31FECB29-72F7-4185-B427-8D200B266787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31FECB29-72F7-4185-B427-8D200B266787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31FECB29-72F7-4185-B427-8D200B266787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31FECB29-72F7-4185-B427-8D200B266787}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,5 +82,6 @@ Global
 		{09652B35-32BB-4ECB-97F9-3443240C8E74} = {A5FE523A-3E58-4700-AE0B-C99E092A5D0E}
 		{7991DB8E-C22B-4FE0-94BF-29EB4D6BE7C1} = {FD1053D7-74DC-4FDD-B171-DC8E3201E255}
 		{3F3F3DF9-D8A5-4003-A4C1-9E51D6856B4C} = {FD1053D7-74DC-4FDD-B171-DC8E3201E255}
+		{31FECB29-72F7-4185-B427-8D200B266787} = {FD1053D7-74DC-4FDD-B171-DC8E3201E255}
 	EndGlobalSection
 EndGlobal

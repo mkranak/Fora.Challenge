@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Fora.Challenge.Application.Contracts.Infrastructure;
 using Fora.Challenge.Application.Contracts.Persistance;
+using Fora.Challenge.Application.Exceptions;
 using Fora.Challenge.Application.Features.FinancialData.Commands;
 using Fora.Challenge.Application.Features.Profiles;
 using Fora.Challenge.Application.Models;
@@ -79,7 +80,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Commands
         }
 
         [Fact]
-        public async Task Handle_WhenMultipleCiksAndServiceDoesNotReturnCompanyDataForOne_ExpectSuccess() // todo should be failure for only one
+        public async Task Handle_WhenMultipleCiksAndServiceDoesNotReturnCompanyDataForOne_ExpectSuccess() 
         {
             // Arrange
             var request = new SaveCompanyDataCommand
@@ -110,6 +111,35 @@ namespace Fora.Challenge.Application.UnitTests.Features.Commands
             // Assert
             _edgarApiServiceMock.Verify();
             _companyDataRepositoryMock.Verify();
+        }
+
+        [Fact]
+        public async Task Handle_WhenNoCiksInRequest_ExpectException()
+        {
+            // Arrange
+            var request = new SaveCompanyDataCommand();
+
+            EdgarCompanyInfo companyInfo = new EdgarCompanyInfo
+            {
+                Cik = 1,
+                EntityName = "Test"
+            };
+            var expectedCompanies = new List<Company>()
+            {
+                new Company
+                {
+                    Cik = 1,
+                    EntityName = "Test"
+                }
+            };
+
+            // Act
+            var exception = await Assert.ThrowsAsync<BadRequestException>(() =>
+                _handler.Handle(request, CancellationToken.None));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.Equal("At least one cik is required.", exception.Message);
         }
     }
 }

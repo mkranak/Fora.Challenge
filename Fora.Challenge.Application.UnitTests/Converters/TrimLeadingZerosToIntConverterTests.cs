@@ -1,7 +1,7 @@
 ﻿using Fora.Challenge.Application.Converters;
-using System.Text.Json;
+using Fora.Challenge.Application.Exceptions;
 using System.Text;
-using Microsoft.Extensions.Primitives;
+using System.Text.Json;
 
 namespace Fora.Challenge.Application.UnitTests.Converters
 {
@@ -29,9 +29,13 @@ namespace Fora.Challenge.Application.UnitTests.Converters
                 _converter.Read(ref reader, typeof(int), null);
                 Assert.Fail("Exception was not thrown.");
             }
-            catch (JsonException ex) 
+            catch (ConversionException ex) 
             {
                 Assert.Equal("Cik value is null or empty.", ex.Message);
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Invalid exception thrown.");
             }
         }
 
@@ -68,9 +72,13 @@ namespace Fora.Challenge.Application.UnitTests.Converters
                 _converter.Read(ref reader, typeof(int), null);
                 Assert.Fail("Exception was not thrown.");
             }
-            catch (JsonException ex)
+            catch (ConversionException ex)
             {
                 Assert.Equal($"Invalid Cik value: {rawInput}", ex.Message);
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Invalid exception thrown.");
             }
         }
 
@@ -106,9 +114,13 @@ namespace Fora.Challenge.Application.UnitTests.Converters
                 _converter.Read(ref reader, typeof(int), null);
                 Assert.Fail("Exception was not thrown.");
             }
-            catch (JsonException ex)
+            catch (ConversionException ex)
             {
-                Assert.Equal("Cik value is out of range for an integer.", ex.Message);
+                Assert.Equal("Cik value is out of range.", ex.Message);
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Invalid exception thrown.");
             }
         }
 
@@ -127,9 +139,13 @@ namespace Fora.Challenge.Application.UnitTests.Converters
                 _converter.Read(ref reader, typeof(int), null);
                 Assert.Fail("Exception was not thrown.");
             }
-            catch (JsonException ex)
+            catch (ConversionException ex)
             {
                 Assert.Equal($"Unexpected token type: {reader.TokenType}", ex.Message);
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Invalid exception thrown.");
             }
         }
     }

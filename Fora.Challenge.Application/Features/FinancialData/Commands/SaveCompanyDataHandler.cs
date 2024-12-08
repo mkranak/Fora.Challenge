@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Fora.Challenge.Application.Contracts.Infrastructure;
 using Fora.Challenge.Application.Contracts.Persistance;
+using Fora.Challenge.Application.Exceptions;
 using Fora.Challenge.Domain.Entities;
 using MediatR;
 
@@ -12,6 +13,10 @@ namespace Fora.Challenge.Application.Features.FinancialData.Commands
         private readonly ICompanyDataRepository _companyDataRepository;
         private readonly IMapper _mapper;
 
+        /// <summary>Initializes a new instance of the <see cref="SaveCompanyDataHandler"/> class.</summary>
+        /// <param name="edgarApiService">The edgar API service.</param>
+        /// <param name="companyDataRepository">The company data repository.</param>
+        /// <param name="mapper">The mapper.</param>
         public SaveCompanyDataHandler(IEdgarApiService edgarApiService, 
             ICompanyDataRepository companyDataRepository, IMapper mapper)
         {
@@ -20,11 +25,15 @@ namespace Fora.Challenge.Application.Features.FinancialData.Commands
             _mapper = mapper;
         }
 
+        /// <summary>Handles the request to save company data.</summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         public async Task Handle(SaveCompanyDataCommand request, CancellationToken cancellationToken)
         {
             var companies = new List<Company>();
 
-            // todo: validate there is atleast 1 cik
+            if (request.Ciks.Count == 0)
+                throw new BadRequestException("At least one cik is required.");
 
             foreach(var cik in request.Ciks)
             {
@@ -36,8 +45,6 @@ namespace Fora.Challenge.Application.Features.FinancialData.Commands
                 var company = _mapper.Map<Company>(companyData);
                 companies.Add(company);
             }
-
-            // todo if (companies.Count <= 0) {
 
             await _companyDataRepository.SaveCompanyDataAsync(companies);
         }

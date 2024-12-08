@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Fora.Challenge.Application.Contracts.Persistance;
+using Fora.Challenge.Application.Exceptions;
 using Fora.Challenge.Application.Features.FinancialData.Queries;
 using Fora.Challenge.Application.Features.Profiles;
 using Fora.Challenge.Application.UnitTests.Mock;
 using Fora.Challenge.Domain.Entities;
 using Moq;
-using System.Xml.Serialization;
 
 namespace Fora.Challenge.Application.UnitTests.Features.Queries
 {
@@ -31,7 +31,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
         public async Task Handle_WhenFilterPassedIn_ExpectSuccess()
         {
             // Arrange
-            var request = new GetCompanyDataQuery { StartsWith = "T" };
+            var request = new GetCompanyDataQuery { FirstLetter = "T" };
             var responseCompanies = new List<Company>()
             {
                 new Company
@@ -48,7 +48,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
                 }
             };
 
-            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.StartsWith, responseCompanies);
+            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.FirstLetter, responseCompanies);
 
             // Act
             var actual = await _handler.Handle(request, CancellationToken.None);
@@ -84,7 +84,7 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
                 }
             };
 
-            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.StartsWith, responseCompanies);
+            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.FirstLetter, responseCompanies);
 
             // Act
             var actual = await _handler.Handle(request, CancellationToken.None);
@@ -100,20 +100,51 @@ namespace Fora.Challenge.Application.UnitTests.Features.Queries
         }
 
         [Fact]
-        public async Task Handle_WhenNoCompanyData_ExpectEmptyList()
+        public async Task Handle_WhenFilterIsLengthGreaterThanOne_ExpectBadRequestException()
+        {
+            // Arrange
+            var request = new GetCompanyDataQuery { FirstLetter = "Ta" };
+            var responseCompanies = new List<Company>()
+            {
+                new Company
+                {
+                    Id = 1,
+                    Cik = 1,
+                    EntityName = "First_Name"
+                },
+                new Company
+                {
+                    Id = 2,
+                    Cik = 2,
+                    EntityName = "Second_Name"
+                }
+            };
+
+            // Act
+            var exception = await Assert.ThrowsAsync<BadRequestException>(() => 
+                _handler.Handle(request, CancellationToken.None));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.Equal("First letter can only have one character.", exception.Message);
+        }
+
+        [Fact]
+        public async Task Handle_WhenNoCompanyData_ExpectNotFoundException()
         {
             // Arrange
             var request = new GetCompanyDataQuery();
             var responseCompanies = new List<Company>(); // empty list
 
-            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.StartsWith, responseCompanies);
+            _companyDataRepositoryMock.SetupGetCompanyDataAsyncMock(request.FirstLetter, responseCompanies);
 
             // Act
-            var actual = await _handler.Handle(request, CancellationToken.None);
+            var exception = await Assert.ThrowsAsync<NotFoundException>(() =>
+                _handler.Handle(request, CancellationToken.None));
 
             // Assert
-            Assert.NotNull(actual);
-            Assert.Empty(actual);
+            Assert.NotNull(exception);
+            Assert.Equal("No companies found.", exception.Message);
             _companyDataRepositoryMock.Verify();
         }
     }

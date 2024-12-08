@@ -1,4 +1,5 @@
-﻿using Fora.Challenge.Application;
+﻿using Fora.Challenge.Api.Middleware;
+using Fora.Challenge.Application;
 using Fora.Challenge.Infrastucture;
 using Fora.Challenge.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,9 @@ namespace Fora.Challenge.Api
 {
     public static class StartupExtensions
     {
+        /// <summary>Configures the services.</summary>
+        /// <param name="builder">The builder.</param>
+        /// <returns>The application.</returns>
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddApplicationServices();
@@ -20,6 +24,9 @@ namespace Fora.Challenge.Api
             return builder.Build();
         }
 
+        /// <summary>Configures the pipeline.</summary>
+        /// <param name="app">The application.</param>
+        /// <returns>The application.</returns>
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {
             if (app.Environment.IsDevelopment())
@@ -28,12 +35,16 @@ namespace Fora.Challenge.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
             app.MapControllers();
 
             return app;
         }
 
+        // todo: this can be removed
+        /// <summary>Resets the database asynchronous.</summary>
+        /// <param name="app">The application.</param>
         public static async Task ResetDatabaseAsync(this WebApplication app)
         {
             using var scope = app.Services.CreateScope();

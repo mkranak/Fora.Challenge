@@ -12,7 +12,7 @@ namespace Fora.Challenge.Persistence.IntegrationTests.Repositories
 
         public CompanyDataRepositoryTests() 
         {
-            var connection = new SqliteConnection("Filename=:memory:");
+            var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
 
             var options = new DbContextOptionsBuilder<CompanyDataDbContext>()

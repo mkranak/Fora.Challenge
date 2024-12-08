@@ -2,8 +2,9 @@
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException(string name, object key)
-            : base($"{name} ({key}) is not found")
+        /// <summary>Initializes a new instance of the <see cref="NotFoundException"/> class.</summary>
+        /// <param name="message">The message that describes the error.</param>
+        public NotFoundException(string message) : base(message)
         {
         }
     }

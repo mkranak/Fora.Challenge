@@ -8,3 +8,5 @@ var app = builder
 //await app.ResetDatabaseAsync(); // todo
 
 app.Run();
+
+public partial class Program { }

@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿// todo: do i need this file?
+using FluentValidation.Results;
 
 namespace Fora.Challenge.Application.Exceptions
 {
