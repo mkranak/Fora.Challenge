@@ -34,14 +34,6 @@ namespace Fora.Challenge.Persistence
             modelBuilder.Entity<NetIncomeLossData>()
                 .Property(p => p.Val)
                 .HasPrecision(18, 2);
-
-            //modelBuilder.Entity<IncomeData>()
-            //.Property(i => i.Form)
-            //.IsRequired();
-
-            //modelBuilder.Entity<IncomeData>()
-            //    .Property(i => i.Frame)
-            //    .IsRequired();
         }
     }
 }

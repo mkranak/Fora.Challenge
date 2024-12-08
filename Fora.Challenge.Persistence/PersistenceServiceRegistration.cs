@@ -14,8 +14,6 @@ namespace Fora.Challenge.Persistence
             services.AddDbContext<CompanyDataDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("CompanyDataConnectionString")));
 
-            services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
-
             services.AddScoped<ICompanyDataRepository, CompanyDataRepository>();
 
             return services;

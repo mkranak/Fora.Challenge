@@ -8,23 +8,30 @@ namespace Fora.Challenge.Persistence.Repositories
     {
         private readonly CompanyDataDbContext _dbContext;
 
+        /// <summary>Initializes a new instance of the <see cref="CompanyDataRepository"/> class.</summary>
+        /// <param name="dbContext">The database context.</param>
         public CompanyDataRepository(CompanyDataDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<List<Company>> GetCompanyDataAsync(string startsWith)
+        /// <summary>Gets the company data asynchronous.</summary>
+        /// <param name="firstLetter">First letter filter.</param>
+        /// <returns>Company data.</returns>
+        public async Task<List<Company>> GetCompanyDataAsync(string firstLetter)
         {
             var query = _dbContext.Companies
                 .Include(c => c.NetIncomeLossData)
                 .AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(startsWith))
-                query = query.Where(c => c.EntityName.StartsWith(startsWith));
+            if (!string.IsNullOrWhiteSpace(firstLetter))
+                query = query.Where(c => c.EntityName.StartsWith(firstLetter));
 
             return await query.ToListAsync();
         }
 
+        /// <summary>Saves the company data asynchronous.</summary>
+        /// <param name="companies">The companies.</param>
         public async Task SaveCompanyDataAsync(IEnumerable<Company> companies)
         {
             foreach (var company in companies)

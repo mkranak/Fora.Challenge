@@ -26,8 +26,9 @@ namespace Fora.Challenge.Application.Features.FinancialData.Commands
         }
 
         /// <summary>Handles the request to save company data.</summary>
-        /// <param name="request">The request.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <param name="request">The request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <exception cref="BadRequestException" />
         public async Task Handle(SaveCompanyDataCommand request, CancellationToken cancellationToken)
         {
             var companies = new List<Company>();

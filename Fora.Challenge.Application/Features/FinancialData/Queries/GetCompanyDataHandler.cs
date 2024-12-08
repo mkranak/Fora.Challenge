@@ -10,12 +10,21 @@ namespace Fora.Challenge.Application.Features.FinancialData.Queries
         private readonly ICompanyDataRepository _companyDataRepository;
         private readonly IMapper _mapper;
 
+        /// <summary>Initializes a new instance of the <see cref="GetCompanyDataHandler"/> class.</summary>
+        /// <param name="companyDataRepository">The company data repository.</param>
+        /// <param name="mapper">The mapper.</param>
         public GetCompanyDataHandler(ICompanyDataRepository companyDataRepository, IMapper mapper)
         {
             _companyDataRepository = companyDataRepository;
             _mapper = mapper;
         }
 
+        /// <summary>Handles the request to get company data.</summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The requested company data.</returns>
+        /// <exception cref="BadRequestException" />
+        /// <exception cref="NotFoundException" />
         public async Task<List<GetCompanyDataResponse>> Handle(GetCompanyDataQuery request, CancellationToken cancellationToken)
         {
             if (request.FirstLetter != null && request.FirstLetter.Length > 1)

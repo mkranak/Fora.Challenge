@@ -1,6 +1,6 @@
 ﻿using Fora.Challenge.Application.Exceptions;
+using Fora.Challenge.Application.Features.Responses;
 using System.Net;
-using System.Text.Json;
 
 namespace Fora.Challenge.Api.Middleware
 {
@@ -39,17 +39,12 @@ namespace Fora.Challenge.Api.Middleware
 
             context.Response.ContentType = "application/json";
 
-            var result = string.Empty;
+            //var result = string.Empty;
 
             switch (exception)
             {
-                case ValidationException validationException:
-                    httpStatusCode = HttpStatusCode.BadRequest;
-                    result = JsonSerializer.Serialize(validationException.ValdationErrors);
-                    break;
                 case BadRequestException badRequestException:
                     httpStatusCode = HttpStatusCode.BadRequest;
-                    result = badRequestException.Message;
                     break;
                 case NotFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
@@ -60,13 +55,9 @@ namespace Fora.Challenge.Api.Middleware
             }
 
             context.Response.StatusCode = (int)httpStatusCode;
+            var errorResult = new ErrorResponse(exception.Message, exception.HResult);
 
-            if (result == string.Empty)
-            {
-                result = JsonSerializer.Serialize(new { error = exception.Message });
-            }
-
-            return context.Response.WriteAsync(result);
+            return context.Response.WriteAsJsonAsync(errorResult);
         }
     }
 }

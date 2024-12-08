@@ -3,7 +3,6 @@ using Fora.Challenge.Application.Features.FinancialData.Queries;
 using Fora.Challenge.Application.Models;
 using Fora.Challenge.Application.Resolvers;
 using Fora.Challenge.Domain.Entities;
-using System.Text.RegularExpressions;
 using static Fora.Challenge.Application.Models.EdgarCompanyInfo;
 
 namespace Fora.Challenge.Application.Features.Profiles

@@ -8,11 +8,16 @@ namespace Fora.Challenge.Infrastucture.EdgarInfo
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>Initializes a new instance of the <see cref="EdgarApiService"/> class.</summary>
+        /// <param name="httpClient">The HTTP client.</param>
         public EdgarApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
+        /// <summary>Fetches the edgar company information asynchronous.</summary>
+        /// <param name="cik">The cik.</param>
+        /// <returns>Company info.</returns>
         public async Task<EdgarCompanyInfo> FetchEdgarCompanyInfoAsync(int cik)
         {
             string formattedCik = cik.ToString().PadLeft(10, '0');

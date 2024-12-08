@@ -6,7 +6,7 @@ namespace Fora.Challenge.Application.Contracts.Persistance
     {
         /// <summary>Gets the company data asynchronous.</summary>
         /// <param name="firstLetter">First letter filter.</param>
-        /// <returns>Company Data.</returns>
+        /// <returns>Company data.</returns>
         Task<List<Company>> GetCompanyDataAsync(string firstLetter);
 
         /// <summary>Saves the company data asynchronous.</summary>

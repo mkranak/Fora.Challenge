@@ -3,11 +3,10 @@ using Fora.Challenge.Application.Models;
 using Fora.Challenge.Domain.Entities;
 using System.Text.RegularExpressions;
 
-
 namespace Fora.Challenge.Application.Resolvers
 {
     public class NetIncomeLossDataResolver : IValueResolver<EdgarCompanyInfo, Company, ICollection<NetIncomeLossData>>
-        {
+    {
         public ICollection<NetIncomeLossData> Resolve(EdgarCompanyInfo source, Company destination, ICollection<NetIncomeLossData> destMember, ResolutionContext context)
         {
             if (source?.Facts?.UsGaap?.NetIncomeLoss?.Units?.Usd == null)

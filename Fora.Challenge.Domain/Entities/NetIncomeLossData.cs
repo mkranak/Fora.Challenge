@@ -8,11 +8,11 @@
 
         /// <summary>Gets or sets the form.</summary>
         /// <remarks>10-K</remarks>
-        public string Form { get; set; } = string.Empty;
+        public string Form { get; set; }
 
         /// <summary>Gets or sets the frame.</summary>
         /// <value>CYYYY</value>
-        public string Frame { get; set; } = string.Empty;
+        public string Frame { get; set; }
 
         /// <summary>Gets or sets the income loss amount.</summary>
         public decimal Val { get; set; }

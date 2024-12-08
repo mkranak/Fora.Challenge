@@ -1,7 +1,5 @@
 ﻿using Fora.Challenge.Application.Contracts.Infrastructure;
-using Fora.Challenge.Application.Models;
 using Fora.Challenge.Infrastucture.EdgarInfo;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fora.Challenge.Infrastucture
@@ -9,7 +7,7 @@ namespace Fora.Challenge.Infrastucture
     public static class InfrastructureServiceRegistration
     {
         public static IServiceCollection AddInfrastructureServices(
-            this IServiceCollection services, IConfiguration configuration)
+            this IServiceCollection services)
         {
             services.AddHttpClient<IEdgarApiService, EdgarApiService>(options =>
             {
