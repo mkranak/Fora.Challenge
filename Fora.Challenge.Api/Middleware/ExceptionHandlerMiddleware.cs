@@ -39,7 +39,7 @@ namespace Fora.Challenge.Api.Middleware
         private Task ConvertException(HttpContext context, Exception exception)
         {
             HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError;
-            LogLevel logLevel = LogLevel.Information;
+            LogLevel logLevel = LogLevel.Error;
 
             context.Response.ContentType = "application/json";
 
@@ -53,7 +53,7 @@ namespace Fora.Challenge.Api.Middleware
                     httpStatusCode = HttpStatusCode.NotFound;
                     logLevel = LogLevel.Warning;
                     break;
-                case Exception:
+                default:
                     httpStatusCode = HttpStatusCode.InternalServerError;
                     logLevel = LogLevel.Error;
                     break;
